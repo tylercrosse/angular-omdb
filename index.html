@@ -4,27 +4,43 @@
 <head>
   <meta charset="UTF-8">
   <title>Angular OMDB</title>
-  <link rel="stylesheet" href="style.css" />
-   <script src="https://code.angularjs.org/1.4.8/angular.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://code.angularjs.org/1.4.8/angular.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      angular
+        .module("omdb", [])
+        .controller("MainController", MainController)
+
+      function MainController($scope) {
+        $scope.movies = ["Star Wars: Episode IV - A New Hope", "Star Wars: Episode V - The Empire Strikes Back"];
+
+        $scope.add = function() {
+          $scope.movies.push($scope.newMovie);
+          $scope.newMove = "";
+        };
+      };
+    })();
+  </script>
 </head>
 
-<body data-ng-app>
+<body data-ng-app="omdb" data-ng-controller="MainController">
   <div class="heroText">
     <h1>Angular OMDB</h1>
   </div>
 
   <div>
     <form>
-      <input type="text" placeholder="Enter a Movie Title..." ng-model="sometext">
-      <button type="submit">Search</button>
+      <input type="text" placeholder="Enter a Movie Title..." ng-model="newMovie">
+      <button ng-click="add()">Add</button>
     </form>
   </div>
 
   <div class="content">
-    <h2>Hello {{ sometext }}</h2>
+    <ul>
+      <li data-ng-repeat="movie in movies"> {{ movie }} </li>
+    </ul>
   </div>
 
-
 </body>
-
 </html>
