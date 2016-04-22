@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Angular OMDB</title>
+  <link rel="stylesheet" href="style.css" />
+   <script src="https://code.angularjs.org/1.4.8/angular.min.js"></script>
+</head>
+
+<body data-ng-app>
+  <div class="heroText">
+    <h1>Angular OMDB</h1>
+  </div>
+
+  <div>
+    <form>
+      <input type="text" placeholder="Enter a Movie Title..." ng-model="sometext">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+  <div class="content">
+    <h2>Hello {{ sometext }}</h2>
+  </div>
+
+
+</body>
+
+</html>
