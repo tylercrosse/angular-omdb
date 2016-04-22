@@ -15,10 +15,14 @@
       function MainController() {
         var vm = this;
 
-        vm.movies = [{Title: "Star Wars: Episode IV - A New Hope"}, {Title: "Star Wars: Episode V - The Empire Strikes Back"}];
+        vm.movies = [];
         vm.query = "";
 
-        vm.queryOmdb = function(query) {
+        vm.queryOmdb = queryOmdb
+
+        ////////////
+
+        function queryOmdb(query) {
           var term = query.replace(/\s/, "+"); // replace any white space characters with a "+"
           var url = "http://omdbapi.com/?s=" + term;
 
