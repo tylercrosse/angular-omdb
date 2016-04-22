@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Angular OMDB</title>
-  <link rel="stylesheet" href="style.css"/>
   <script src="https://code.angularjs.org/1.4.8/angular.min.js"></script>
+  <script   src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
   <script type="text/javascript">
     (function() {
       angular
@@ -15,12 +15,21 @@
       function MainController() {
         var vm = this;
 
-        vm.movies = ["Star Wars: Episode IV - A New Hope", "Star Wars: Episode V - The Empire Strikes Back"];
+        vm.movies = [{Title: "Star Wars: Episode IV - A New Hope"}, {Title: "Star Wars: Episode V - The Empire Strikes Back"}];
+        vm.query = "";
 
-        vm.add = function() {
-          vm.movies.push(vm.newMovie);
-          vm.newMove = "";
+        vm.queryOmdb = function(query) {
+          var term = query.replace(/\s/, "+"); // replace any white space characters with a "+"
+          var url = "http://omdbapi.com/?s=" + term;
+
+          // fetch all movies matching the passed in title as JSON
+          $.getJSON(url).done(function(res) {
+            $.each( res.Search, function( i, item ) {
+              vm.movies.push(item);
+            });
+          });
         };
+
       };
     })();
   </script>
@@ -33,14 +42,14 @@
 
   <div>
     <form>
-      <input type="text" placeholder="Enter a Movie Title..." ng-model="vm.newMovie">
-      <button ng-click="vm.add()">Add</button>
+      <input type="text" placeholder="Enter a Movie Title..." ng-model="vm.query">
+      <button ng-click="vm.queryOmdb(vm.query)">Add</button>
     </form>
   </div>
 
   <div class="content">
     <ul>
-      <li data-ng-repeat="movie in vm.movies"> {{ movie }} </li>
+      <li data-ng-repeat="movie in vm.movies"> {{ movie.Title }} </li>
     </ul>
   </div>
 
