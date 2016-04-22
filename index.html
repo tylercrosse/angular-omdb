@@ -11,7 +11,13 @@
         .module("omdb", [])
         .controller("MainController", MainController)
 
-      function MainController($http) {
+      apiFactory.$inject = [ "$http" ];
+      function apiFactory($http) {
+
+      };
+
+      MainController.$inject = [ "apiFactory" ];
+      function MainController(apiFactory) {
         var vm = this;
 
         vm.movies = [];
