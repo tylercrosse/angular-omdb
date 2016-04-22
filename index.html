@@ -12,33 +12,35 @@
         .module("omdb", [])
         .controller("MainController", MainController)
 
-      function MainController($scope) {
-        $scope.movies = ["Star Wars: Episode IV - A New Hope", "Star Wars: Episode V - The Empire Strikes Back"];
+      function MainController() {
+        var vm = this;
 
-        $scope.add = function() {
-          $scope.movies.push($scope.newMovie);
-          $scope.newMove = "";
+        vm.movies = ["Star Wars: Episode IV - A New Hope", "Star Wars: Episode V - The Empire Strikes Back"];
+
+        vm.add = function() {
+          vm.movies.push(vm.newMovie);
+          vm.newMove = "";
         };
       };
     })();
   </script>
 </head>
 
-<body data-ng-app="omdb" data-ng-controller="MainController">
+<body data-ng-app="omdb" data-ng-controller="MainController as vm">
   <div class="heroText">
     <h1>Angular OMDB</h1>
   </div>
 
   <div>
     <form>
-      <input type="text" placeholder="Enter a Movie Title..." ng-model="newMovie">
-      <button ng-click="add()">Add</button>
+      <input type="text" placeholder="Enter a Movie Title..." ng-model="vm.newMovie">
+      <button ng-click="vm.add()">Add</button>
     </form>
   </div>
 
   <div class="content">
     <ul>
-      <li data-ng-repeat="movie in movies"> {{ movie }} </li>
+      <li data-ng-repeat="movie in vm.movies"> {{ movie }} </li>
     </ul>
   </div>
 
